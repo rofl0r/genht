@@ -23,14 +23,14 @@
 	c ^= b; c -= rot(b, 24); \
 }
 
-#define seed 0x9e3779b9
+#define SEED 0x9e3779b9
 
 /* bob jenkins: lookup 3 */
 unsigned jenhash(const void *key, unsigned len) {
 	unsigned a, b, c;
 	const unsigned *k = (const unsigned *)key;
 	
-	a = b = c = seed;
+	a = b = c = SEED;
 	while (len > 12) {
 		a += *k++;
 		b += *k++;
@@ -59,7 +59,7 @@ unsigned jenhash(const void *key, unsigned len) {
 unsigned jenhash32(unsigned k) {
 	unsigned a, b, c;
 	
-	a = b = c = seed;
+	a = b = c = SEED;
 	a += k;
 	final(a, b, c)
 	return c;
@@ -68,7 +68,7 @@ unsigned jenhash32(unsigned k) {
 /* austin appleby: murmur 2 */
 unsigned murmurhash(const void *key, unsigned len) {
 	enum { m = 0x5bd1e995, r = 24 };
-	unsigned h = seed ^ len;
+	unsigned h = SEED ^ len;
 	const unsigned char *data = (const unsigned char *)key;
 
 	while(len >= 4) {
@@ -106,7 +106,7 @@ unsigned ptrhash(void *k) {
 /* simple string hash */
 unsigned strhash(char *key) {
 	unsigned char *p = (unsigned char *)key;
-	unsigned h = seed;
+	unsigned h = SEED;
 
 	while (*p)
 		h += (h << 2) + *p++;
