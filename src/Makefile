@@ -2,7 +2,7 @@ CFLAGS=-Wall -pedantic -g
 
 BIN=mainsi
 
-all: $(BIN) htss.o
+all: $(BIN) htss.o hash.o
 
 clean:
 	rm -f $(BIN) *.o
