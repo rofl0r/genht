@@ -1,6 +1,6 @@
 CFLAGS=-Wall -pedantic -g
 
-BIN=main1
+BIN=main
 
 all: $(BIN)
 
@@ -10,6 +10,6 @@ clean:
 %.o:%.c
 	$(CC) -o $@ -c $^ $(CFLAGS)
 
-main1: main1.o htsi1.o
+main: main1.o htsi.o
 	$(CC) -o $@ $^ $(LDFLAGS)
 
