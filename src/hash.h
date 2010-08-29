@@ -10,8 +10,8 @@ unsigned murmurhash32(unsigned k);
 
 
 /* simple hash for aligned pointers */
-unsigned ptrhash(const void *k);
+unsigned ptrhash(void *k);
 
 /* simple string hash */
-unsigned strhash(const char *k);
+unsigned strhash(char *k);
 

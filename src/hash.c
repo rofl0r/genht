@@ -98,13 +98,13 @@ unsigned murmurhash32(unsigned k) {
 }
 
 /* simple hash for aligned pointers */
-unsigned ptrhash(const void *k) {
+unsigned ptrhash(void *k) {
 	unsigned long n = (unsigned long)k;
 	return (n >> 2) ^ (n >> 12);
 }
 
 /* simple string hash */
-unsigned strhash(const char *key) {
+unsigned strhash(char *key) {
 	unsigned char *p = (unsigned char *)key;
 	unsigned h = seed;
 
