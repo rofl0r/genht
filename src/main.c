@@ -24,39 +24,39 @@ static int keyeq(char *a, char *b) {
 }
 
 int main() {
-	ht_t *ht;
-	ht_entry_t *e;
+	htsi_t *ht;
+	htsi_entry_t *e;
 
-	ht = ht_alloc(keyhash, keyeq);
-	ht_set(ht, "a", 1);
-	ht_set(ht, "b", 2);
-	ht_set(ht, "asdf", -3);
-	ht_set(ht, "qw", 4);
-	ht_set(ht, "v", 5);
-	ht_set(ht, "df", 6);
-	ht_set(ht, "x", 7);
-	if (!ht_has(ht, "a"))
+	ht = htsi_alloc(keyhash, keyeq);
+	htsi_set(ht, "a", 1);
+	htsi_set(ht, "b", 2);
+	htsi_set(ht, "asdf", -3);
+	htsi_set(ht, "qw", 4);
+	htsi_set(ht, "v", 5);
+	htsi_set(ht, "df", 6);
+	htsi_set(ht, "x", 7);
+	if (!htsi_has(ht, "a"))
 		puts("ERR: has a");
-	if (ht_has(ht, "1"))
+	if (htsi_has(ht, "1"))
 		puts("ERR: has 1");
-	if (ht_insert(ht, "y", 8))
+	if (htsi_insert(ht, "y", 8))
 		puts("ERR: insert y");
-	if (ht_insert(ht, "x", 9)->value != 7)
+	if (htsi_insert(ht, "x", 9)->value != 7)
 		puts("ERR: insert x");
-	if (ht_pop(ht, "b") != 2 || ht_getentry(ht, "b"))
+	if (htsi_pop(ht, "b") != 2 || htsi_getentry(ht, "b"))
 		puts("ERR: pop b");
-	if (ht_popentry(ht, "b"))
+	if (htsi_popentry(ht, "b"))
 		puts("ERR: pope b");
-	if (ht_popentry(ht, "c"))
+	if (htsi_popentry(ht, "c"))
 		puts("ERR: pope c");
-	for (e = ht_first(ht); e; e = ht_next(ht, e)) {
-		if (ht_get(ht, e->key) != e->value)
+	for (e = htsi_first(ht); e; e = htsi_next(ht, e)) {
+		if (htsi_get(ht, e->key) != e->value)
 			printf("ERR %s %d\n", e->key, e->value);
 		printf("%s %d\n", e->key, e->value);
 	}
-	ht_clear(ht);
-	for (e = ht_first(ht); e; e = ht_next(ht, e))
+	htsi_clear(ht);
+	for (e = htsi_first(ht); e; e = htsi_next(ht, e))
 		puts("ERR: clear");
-	ht_free(ht);
+	htsi_free(ht);
 	return 0;
 }
