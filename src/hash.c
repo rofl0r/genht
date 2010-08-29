@@ -31,14 +31,14 @@ unsigned jenhash(const void *key, unsigned len) {
 	const unsigned *k = (const unsigned *)key;
 	
 	a = b = c = seed;
-	while (size > 12) {
+	while (len > 12) {
 		a += *k++;
 		b += *k++;
 		c += *k++;
 		mix(a, b, c)
-		size -= 12;
+		len -= 12;
 	}
-	switch (size) {
+	switch (len) {
 		case 12: c+=k[2]; b+=k[1]; a+=k[0]; break;
 		case 11: c+=k[2]&0xffffff; b+=k[1]; a+=k[0]; break;
 		case 10: c+=k[2]&0xffff; b+=k[1]; a+=k[0]; break;
