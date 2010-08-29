@@ -23,7 +23,7 @@
 	c ^= b; c -= rot(b, 24); \
 }
 
-enum { seed = 0x9e3779b9 };
+#define seed 0x9e3779b9
 
 /* bob jenkins: lookup 3 */
 unsigned jenhash(const void *key, unsigned len) {
