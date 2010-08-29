@@ -86,7 +86,7 @@ unsigned murmurhash(const void *key, unsigned len) {
 	case 2: h ^= data[1] << 8;
 	case 1: h ^= data[0];
 	        h *= m;
-	};
+	}
 	h ^= h >> 13;
 	h *= m;
 	h ^= h >> 15;
