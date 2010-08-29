@@ -1,4 +1,4 @@
-#include "htsi1.h"
+#include "htsi.h"
 #define HT(x) ht_ ## x
-#include "ht1.c"
+#include "ht.c"
 #undef HT
