@@ -9,9 +9,8 @@
 #undef static
 #endif
 #define static
-
 #include "ht_inlines.h"
-
+#undef static
 #endif
 
 

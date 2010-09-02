@@ -1,3 +1,4 @@
+# use -Dinline if compiling with c89
 CFLAGS=-Wall -pedantic -g
 
 BIN=mainsi
