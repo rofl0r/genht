@@ -1,6 +1,20 @@
 #include <stdlib.h>
 #include <assert.h>
 
+#ifdef inline
+/* make sure inline and static are empty so all calls become linkabe functions */
+#undef inline
+#define inline
+#ifdef static
+#undef static
+#endif
+#define static
+
+#include "ht_inlines.h"
+
+#endif
+
+
 #define HT_MINSIZE 8
 #define HT_MAXSIZE (1U << 31)
 
@@ -219,3 +233,4 @@ void HT(delentry)(HT(t) *ht, HT(entry_t) *entry) {
 	ht->used--;
 	setdeleted(entry);
 }
+
