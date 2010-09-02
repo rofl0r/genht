@@ -5,11 +5,10 @@
 typedef void *HT(key_t);
 typedef void *HT(value_t);
 */
-typedef unsigned int HT(hash_t);
 
 typedef struct {
 	int flag;
-	HT(hash_t) hash;
+	unsigned int hash;
 	HT(key_t) key;
 	HT(value_t) value;
 } HT(entry_t);
@@ -20,12 +19,12 @@ typedef struct {
 	unsigned int used;
 	HT(entry_t) *table;
 
-	HT(hash_t) (*keyhash)(HT(key_t));
+	unsigned int (*keyhash)(HT(key_t));
 	int (*keyeq)(HT(key_t), HT(key_t));
 } HT(t);
 
-HT(t) *HT(alloc)(HT(hash_t) (*keyhash)(HT(key_t)), int (*keyeq)(HT(key_t), HT(key_t)));
-void HT(init)(HT(t) *ht, HT(hash_t) (*keyhash)(HT(key_t)), int (*keyeq)(HT(key_t), HT(key_t)));
+HT(t) *HT(alloc)(unsigned int (*keyhash)(HT(key_t)), int (*keyeq)(HT(key_t), HT(key_t)));
+void HT(init)(HT(t) *ht, unsigned int (*keyhash)(HT(key_t)), int (*keyeq)(HT(key_t), HT(key_t)));
 void HT(free)(HT(t) *ht);
 void HT(uninit)(HT(t) *ht);
 void HT(clear)(HT(t) *ht);
