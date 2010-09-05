@@ -96,7 +96,7 @@ static HT(entry_t) *lookup(HT(t) *ht, HT(key_t) key, unsigned int hash) {
 	}
 }
 
-/* for copy and resize: no deleted entries in ht, entry->key is not in ht */
+/* for copy and resize: no deleted entries in ht, the lookedup key is not in ht */
 static HT(entry_t) *cleanlookup(HT(t) *ht, unsigned int hash) {
 	unsigned int mask = ht->mask;
 	unsigned int i = hash;
