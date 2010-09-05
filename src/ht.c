@@ -2,7 +2,7 @@
 #include <assert.h>
 
 #ifdef inline
-/* make sure inline and static are empty so all calls become linkabe functions */
+/* make sure inline and static are empty so all calls become linkable functions */
 #undef inline
 #define inline
 #ifdef static
