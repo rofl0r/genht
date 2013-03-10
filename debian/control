@@ -1,0 +1,11 @@
+Source: genht
+Section: graphics
+Priority: optional
+Maintainer: Tibor Palinkas <genht@igor2.repo.hu>
+
+Package: genht
+Architecture: i386 amd64
+Depends: ${shlibs:Depends}
+Description: Generic hash table lib for C
+ Provides a simple interface for creating hash tables with arbitrary
+ key and value types. Ships with shared objects for standard table types.
