@@ -13,16 +13,16 @@ clean:
 	rm -f $(BIN) *.o
 
 %.o:%.c
-	$(CC) -o $@ -c $^ $(CFLAGS)
+	$(CC) -o $@ -c $< $(CFLAGS)
 
 mainsi: mainsi.o htsi.o
-	$(CC) -o $@ $^ $(LDFLAGS)
+	$(CC) -o $@ mainsi.o htsi.o $(LDFLAGS)
 
 genht_std.so: $(OBJS)
-	$(CC) -shared -dynamic -rdynamic -o $@ $^
+	$(CC) -shared -dynamic -rdynamic -o $@ $(OBJS)
 
 genht_std.a: $(OBJS)
-	ar rvu $@ $^
+	ar rvu $@ $(OBJS)
 
 install_: genht_std.so genht_std.a
 	mkdir -p $(INCDIR) $(LIBDIR)
