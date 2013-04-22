@@ -13,7 +13,7 @@ clean:
 	rm -f $(BIN) *.o
 
 %.o:%.c
-	$(CC) -o $@ -c $< $(CFLAGS)
+	$(CC) -o $@ -c -fPIC $< $(CFLAGS)
 
 mainsi: mainsi.o htsi.o
 	$(CC) -o $@ mainsi.o htsi.o $(LDFLAGS)
