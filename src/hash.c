@@ -25,6 +25,7 @@
 
 #define SEED 0x9e3779b9
 
+/* not for strings: does unaligned access and reads past the end of key */
 /* bob jenkins: lookup 3 */
 unsigned jenhash(const void *key, unsigned len) {
 	unsigned a, b, c;
