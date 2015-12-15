@@ -21,6 +21,9 @@ typedef struct {
 
 	unsigned int (*keyhash)(HT(key_t));
 	int (*keyeq)(HT(key_t), HT(key_t));
+#ifdef GENHT_USER_FIELDS
+	GENHT_USER_FIELDS
+#endif
 } HT(t);
 
 HT(t) *HT(alloc)(unsigned int (*keyhash)(HT(key_t)), int (*keyeq)(HT(key_t), HT(key_t)));
@@ -50,6 +53,22 @@ HT(value_t) HT(pop)(HT(t) *ht, HT(key_t) key);
 HT(entry_t) *HT(popentry)(HT(t) *ht, HT(key_t) key);
 /* delete entry (useful for destructive iteration) */
 void HT(delentry)(HT(t) *ht, HT(entry_t) *entry);
+
+
+/* User application can override malloc/realloc/free by defining these macros: */
+#ifndef genht_malloc
+#define genht_malloc(ht, size) malloc(size)
+#endif
+#ifndef genht_calloc
+#define genht_calloc(ht, size1, size2) calloc(size1, size2)
+#endif
+#ifndef genht_realloc
+#define genht_realloc(ht, ptr, size) realloc(ptr, size)
+#endif
+#ifndef genht_free
+#define genht_free(ht, ptr) free(ptr)
+#endif
+
 
 #ifdef inline
 

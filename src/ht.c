@@ -38,19 +38,19 @@ void HT(init)(HT(t) *ht, unsigned int (*keyhash)(HT(key_t)), int (*keyeq)(HT(key
 	ht->mask = HT_MINSIZE - 1;
 	ht->fill = 0;
 	ht->used = 0;
-	ht->table = calloc(ht->mask + 1, sizeof(HT(entry_t)));
+	ht->table = genht_calloc(ht, ht->mask + 1, sizeof(HT(entry_t)));
 	assert(ht->table);
 	ht->keyhash = keyhash;
 	ht->keyeq = keyeq;
 }
 
 void HT(uninit)(HT(t) *ht) {
-	free(ht->table);
+	genht_free(ht, ht->table);
 	ht->table = NULL;
 }
 
 HT(t) *HT(alloc)(unsigned int (*keyhash)(HT(key_t)), int (*keyeq)(HT(key_t), HT(key_t))) {
-	HT(t) *ht = malloc(sizeof(HT(t)));
+	HT(t) *ht = genht_malloc(NULL, sizeof(HT(t)));
 
 	assert(ht);
 	HT(init)(ht, keyhash, keyeq);
@@ -64,7 +64,7 @@ void HT(clear)(HT(t) *ht) {
 
 void HT(free)(HT(t) *ht) {
 	HT(uninit)(ht);
-	free(ht);
+	genht_free(NULL, ht);
 }
 
 /* one lookup function to rule them all */
@@ -118,11 +118,11 @@ HT(t) *HT(copy)(const HT(t) *ht) {
 	HT(entry_t) *entry;
 	unsigned int used = ht->used;
 
-	newht = malloc(sizeof(HT(t)));
+	newht = genht_malloc(NULL, sizeof(HT(t)));
 	assert(newht);
 	*newht = *ht;
 	newht->fill = used;
-	newht->table = calloc(newht->mask + 1, sizeof(HT(entry_t)));
+	newht->table = genht_calloc(ht, newht->mask + 1, sizeof(HT(entry_t)));
 	assert(newht->table);
 	for (entry = ht->table; used > 0; entry++)
 		if (HT(isused)(entry)) {
@@ -143,7 +143,7 @@ void HT(resize)(HT(t) *ht, unsigned int hint) {
 	if (hint > HT_MAXSIZE)
 		hint = HT_MAXSIZE;
 	for (newsize = HT_MINSIZE; newsize < hint; newsize <<= 1);
-	ht->table = calloc(newsize, sizeof(HT(entry_t)));
+	ht->table = genht_calloc(ht, newsize, sizeof(HT(entry_t)));
 	assert(ht->table);
 	ht->mask = newsize - 1;
 	ht->fill = ht->used;
@@ -152,7 +152,7 @@ void HT(resize)(HT(t) *ht, unsigned int hint) {
 			used--;
 			*cleanlookup(ht, entryhash(entry)) = *entry;
 		}
-	free(oldtable);
+	genht_free(ht, oldtable);
 }
 
 int HT(has)(HT(t) *ht, HT(key_t) key) {
