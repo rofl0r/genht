@@ -5,7 +5,7 @@ LIBDIR=$(install_root)/usr/lib
 CFLAGS=-Wall -pedantic -g
 
 BIN=mainsi
-OBJS=htss.o htsp.o htsi.o htip.o hash.o siphash24.o
+OBJS=htss.o htsp.o htsi.o htip.o htpp.o htpi.o hash.o siphash24.o
 
 all: $(BIN) $(OBJS) genht_std.a genht_std.so
 
