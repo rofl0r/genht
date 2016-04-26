@@ -15,4 +15,3 @@ unsigned ptrhash(void *k);
 
 /* simple string hash */
 unsigned strhash(char *k);
-
