@@ -1,3 +1,5 @@
+#include <string.h>
+
 /* assumes sizeof(unsigned)==4 */
 
 #define rot(x, k) (((x)<<(k)) ^ ((x)>>(32-(k))))
@@ -114,3 +116,21 @@ unsigned strhash(char *key) {
 	return h;
 }
 
+
+/* case sensitive string keyeq */
+int strkeyeq(char *a, char *b)
+{
+	return !strcmp(a, b);
+}
+
+/* case insensitive string keyeq */
+int strkeyeq_case(char *a, char *b)
+{
+	return !strcasecmp(a, b);
+}
+
+/* pointer match for htp*_t */
+int ptrkeyeq(void *a, void *b)
+{
+	return a == b;
+}

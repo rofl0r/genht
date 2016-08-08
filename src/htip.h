@@ -7,4 +7,6 @@ typedef void *htip_value_t;
 #include "ht.h"
 #undef HT
 
+int htip_keyeq(htip_key_t a, htip_key_t b);
+
 #endif

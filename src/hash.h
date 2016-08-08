@@ -15,3 +15,11 @@ unsigned ptrhash(void *k);
 
 /* simple string hash */
 unsigned strhash(char *k);
+
+/* string keyeq functions - case sensitive and case-insensitive */
+int strkeyeq(char *a, char *b);
+int strkeyeq_case(char *a, char *b);
+
+/* pointer match for htp*_t */
+int ptrkeyeq(void *a, void *b);
+
