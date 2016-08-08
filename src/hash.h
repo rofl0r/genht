@@ -13,8 +13,9 @@ unsigned murmurhash32(unsigned k);
 /* simple hash for aligned pointers */
 unsigned ptrhash(void *k);
 
-/* simple string hash */
+/* simple string hash - case sensitive and case-insensitive */
 unsigned strhash(char *k);
+unsigned strhash_case(char *key);
 
 /* string keyeq functions - case sensitive and case-insensitive */
 int strkeyeq(char *a, char *b);

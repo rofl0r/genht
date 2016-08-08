@@ -1,4 +1,5 @@
 #include <string.h>
+#include <ctype.h>
 
 /* assumes sizeof(unsigned)==4 */
 
@@ -113,6 +114,16 @@ unsigned strhash(char *key) {
 
 	while (*p)
 		h += (h << 2) + *p++;
+	return h;
+}
+
+/* simple string hash, case-insensitive */
+unsigned strhash_case(char *key) {
+	unsigned char *p = (unsigned char *)key;
+	unsigned h = SEED;
+
+	while (*p)
+		h += (h << 2) + tolower(*p++);
 	return h;
 }
 
