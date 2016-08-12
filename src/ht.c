@@ -13,6 +13,9 @@
 #undef static
 #endif
 
+#ifndef HT_INVALID_VALUE
+#define HT_INVALID_VALUE 0
+#endif
 
 #define HT_MINSIZE 8
 #define HT_MAXSIZE (1U << 31)
@@ -164,7 +167,7 @@ int HT(has)(HT(t) *ht, HT(key_t) key) {
 HT(value_t) HT(get)(HT(t) *ht, HT(key_t) key) {
 	HT(entry_t) *entry = lookup(ht, key, ht->keyhash(key));
 
-	return HT(isused)(entry) ? entry->value : 0;
+	return HT(isused)(entry) ? entry->value : HT_INVALID_VALUE;
 }
 
 HT(entry_t) *HT(getentry)(HT(t) *ht, HT(key_t) key) {
@@ -208,7 +211,7 @@ HT(value_t) HT(pop)(HT(t) *ht, HT(key_t) key) {
 	HT(value_t) v;
 
 	if (!HT(isused)(entry))
-		return 0;
+		return HT_INVALID_VALUE;
 	ht->used--;
 	v = entry->value;
 	setdeleted(entry);
@@ -233,3 +236,4 @@ void HT(delentry)(HT(t) *ht, HT(entry_t) *entry) {
 	setdeleted(entry);
 }
 
+#undef HT_INVALID_VALUE
