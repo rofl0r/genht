@@ -145,3 +145,14 @@ int ptrkeyeq(void *a, void *b)
 {
 	return a == b;
 }
+
+long int longhash(long int l)
+{
+	return l;
+}
+
+int longkeyeq(long a, long b)
+{
+	return a == b;
+}
+
