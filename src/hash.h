@@ -24,3 +24,7 @@ int strkeyeq_case(char *a, char *b);
 /* pointer match for htp*_t */
 int ptrkeyeq(void *a, void *b);
 
+
+/* long (int) */
+long int longhash(long int l);
+int longkeyeq(long a, long b);
