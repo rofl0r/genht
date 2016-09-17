@@ -37,7 +37,7 @@ static inline unsigned int entryhash(const HT(entry_t) *entry) {
 	return entry->hash;
 }
 
-void HT(init)(HT(t) *ht, unsigned int (*keyhash)(HT(key_t)), int (*keyeq)(HT(key_t), HT(key_t))) {
+void HT(init)(HT(t) *ht, unsigned int (*keyhash)(HT(const_key_t)), int (*keyeq)(HT(const_key_t), HT(const_key_t))) {
 	ht->mask = HT_MINSIZE - 1;
 	ht->fill = 0;
 	ht->used = 0;
@@ -52,7 +52,7 @@ void HT(uninit)(HT(t) *ht) {
 	ht->table = NULL;
 }
 
-HT(t) *HT(alloc)(unsigned int (*keyhash)(HT(key_t)), int (*keyeq)(HT(key_t), HT(key_t))) {
+HT(t) *HT(alloc)(unsigned int (*keyhash)(HT(const_key_t)), int (*keyeq)(HT(const_key_t), HT(const_key_t))) {
 	HT(t) *ht = genht_malloc(NULL, sizeof(HT(t)));
 
 	assert(ht);
@@ -71,7 +71,7 @@ void HT(free)(HT(t) *ht) {
 }
 
 /* one lookup function to rule them all */
-static HT(entry_t) *lookup(HT(t) *ht, HT(key_t) key, unsigned int hash) {
+static HT(entry_t) *lookup(HT(t) *ht, HT(const_key_t) key, unsigned int hash) {
 	unsigned int mask = ht->mask;
 	unsigned int i = hash;
 	unsigned int j;
@@ -158,19 +158,19 @@ void HT(resize)(HT(t) *ht, unsigned int hint) {
 	genht_free(ht, oldtable);
 }
 
-int HT(has)(HT(t) *ht, HT(key_t) key) {
+int HT(has)(HT(t) *ht, HT(const_key_t) key) {
 	HT(entry_t) *entry = lookup(ht, key, ht->keyhash(key));
 
 	return HT(isused)(entry);
 }
 
-HT(value_t) HT(get)(HT(t) *ht, HT(key_t) key) {
+HT(value_t) HT(get)(HT(t) *ht, HT(const_key_t) key) {
 	HT(entry_t) *entry = lookup(ht, key, ht->keyhash(key));
 
 	return HT(isused)(entry) ? entry->value : HT_INVALID_VALUE;
 }
 
-HT(entry_t) *HT(getentry)(HT(t) *ht, HT(key_t) key) {
+HT(entry_t) *HT(getentry)(HT(t) *ht, HT(const_key_t) key) {
 	HT(entry_t) *entry = lookup(ht, key, ht->keyhash(key));
 
 	return HT(isused)(entry) ? entry : NULL;
@@ -206,7 +206,7 @@ void HT(set)(HT(t) *ht, HT(key_t) key, HT(value_t) value) {
 		entry->value = value;
 }
 
-HT(value_t) HT(pop)(HT(t) *ht, HT(key_t) key) {
+HT(value_t) HT(pop)(HT(t) *ht, HT(const_key_t) key) {
 	HT(entry_t) *entry = lookup(ht, key, ht->keyhash(key));
 	HT(value_t) v;
 
@@ -218,7 +218,7 @@ HT(value_t) HT(pop)(HT(t) *ht, HT(key_t) key) {
 	return v;
 }
 
-HT(entry_t) *HT(popentry)(HT(t) *ht, HT(key_t) key) {
+HT(entry_t) *HT(popentry)(HT(t) *ht, HT(const_key_t) key) {
 	HT(entry_t) *entry = lookup(ht, key, ht->keyhash(key));
 
 	if (HT(isused)(entry)) {

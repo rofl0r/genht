@@ -11,18 +11,18 @@ unsigned murmurhash32(unsigned k);
 
 
 /* simple hash for aligned pointers */
-unsigned ptrhash(void *k);
+unsigned ptrhash(const void *k);
 
 /* simple string hash - case sensitive and case-insensitive */
-unsigned strhash(char *k);
-unsigned strhash_case(char *key);
+unsigned strhash(const char *k);
+unsigned strhash_case(const char *key);
 
 /* string keyeq functions - case sensitive and case-insensitive */
-int strkeyeq(char *a, char *b);
-int strkeyeq_case(char *a, char *b);
+int strkeyeq(const char *a, const char *b);
+int strkeyeq_case(const char *a, const char *b);
 
 /* pointer match for htp*_t */
-int ptrkeyeq(void *a, void *b);
+int ptrkeyeq(const void *a, const void *b);
 
 
 /* long (int) */

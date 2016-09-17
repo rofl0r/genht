@@ -102,14 +102,14 @@ unsigned murmurhash32(unsigned k) {
 }
 
 /* simple hash for aligned pointers */
-unsigned ptrhash(void *k) {
-	unsigned long n = (unsigned long)k;
+unsigned ptrhash(const void *k) {
+	const unsigned long n = (const unsigned long)k;
 	return (n >> 2) ^ (n >> 12);
 }
 
 /* simple string hash */
-unsigned strhash(char *key) {
-	unsigned char *p = (unsigned char *)key;
+unsigned strhash(const char *key) {
+	const unsigned char *p = (const unsigned char *)key;
 	unsigned h = SEED;
 
 	while (*p)
@@ -118,8 +118,8 @@ unsigned strhash(char *key) {
 }
 
 /* simple string hash, case-insensitive */
-unsigned strhash_case(char *key) {
-	unsigned char *p = (unsigned char *)key;
+unsigned strhash_case(const char *key) {
+	const unsigned char *p = (const unsigned char *)key;
 	unsigned h = SEED;
 
 	while (*p)
@@ -129,19 +129,19 @@ unsigned strhash_case(char *key) {
 
 
 /* case sensitive string keyeq */
-int strkeyeq(char *a, char *b)
+int strkeyeq(const char *a, const char *b)
 {
 	return !strcmp(a, b);
 }
 
 /* case insensitive string keyeq */
-int strkeyeq_case(char *a, char *b)
+int strkeyeq_case(const char *a, const char *b)
 {
 	return !strcasecmp(a, b);
 }
 
 /* pointer match for htp*_t */
-int ptrkeyeq(void *a, void *b)
+int ptrkeyeq(const void *a, const void *b)
 {
 	return a == b;
 }
