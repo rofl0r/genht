@@ -7,4 +7,4 @@ typedef void *htpp_value_t;
 #include "ht.h"
 #undef HT
 
-#endif GENHT_HTPP_H
+#endif
