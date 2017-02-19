@@ -26,5 +26,5 @@ int ptrkeyeq(const void *a, const void *b);
 
 
 /* long (int) */
-long int longhash(long int l);
+unsigned longhash(long int l);
 int longkeyeq(long a, long b);

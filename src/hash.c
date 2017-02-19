@@ -146,7 +146,7 @@ int ptrkeyeq(const void *a, const void *b)
 	return a == b;
 }
 
-long int longhash(long int l)
+unsigned longhash(long int l)
 {
 	return l;
 }
