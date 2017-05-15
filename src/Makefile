@@ -33,6 +33,7 @@ install_: genht_std.so genht_std.a
 	$(CP) `pwd`/htsi.h $(INCDIR)/htsi.h
 	$(CP) `pwd`/htsp.h $(INCDIR)/htsp.h
 	$(CP) `pwd`/htss.h $(INCDIR)/htss.h
+	$(CP) `pwd`/htss.h $(INCDIR)/htpp.h
 	$(CP) `pwd`/genht_std.so $(LIBDIR)/genht_std.so
 	$(CP) `pwd`/genht_std.a $(LIBDIR)/genht_std.a
 
