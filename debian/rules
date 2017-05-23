@@ -1,63 +1,14 @@
 #!/usr/bin/make -f
-# Sample debian/rules that uses debhelper.
-# This file is public domain software, originally written by Joey Hess. 
+DPKG_EXPORT_BUILD_FLAGS = 1
+include /usr/share/dpkg/buildflags.mk
 
-# Uncomment this to turn on verbose mode.
-#export DH_VERBOSE=1
+%:
+	dh $@ --parallel
 
-pkg_base=genht
+# there's no configuration step at all
+override_dh_auto_configure:
 
-build: build-stamp
-build-stamp:
-	dh_testdir
-	# Add here commands to compile the package.
-	cd src && $(MAKE) all
-	touch build-stamp
+override_dh_auto_install:
+	dh_auto_install -v --destdir=debian/tmp
 
-clean:
-	dh_testdir
-	dh_testroot
-	rm -f build-stamp
-	# Add here commands to clean up after the build process.
-	cd src && $(MAKE) clean
-	rm -rf `pwd`/debian/root-genht
 
-	dh_clean
-
-install: build
-	dh_testdir
-	
-	dh_testroot
-	dh_clean -k
-	dh_installdirs
-
-	export install_root=`pwd`/debian/root-genht; cd src && make install && cd ..
-
-# Build architecture-independent files here.
-binary-indep: build install
-# We have nothing to do by default.
-
-# Build architecture-dependent files here.
-binary-arch: build install
-	dh_testdir
-	dh_testroot
-	dh_installchangelogs
-	dh_installdocs
-	dh_installexamples
-	dh_install -p$(pkg_base) --sourcedir=debian/root-genht usr/include
-	dh_install -p$(pkg_base) --sourcedir=debian/root-genht usr/lib
-
-	dh_installman
-
-	dh_link
-	dh_strip
-	dh_compress
-	dh_fixperms
-	dh_installdeb
-	dh_shlibdeps
-	dh_gencontrol
-	dh_md5sums
-	dh_builddeb
-
-binary: binary-indep binary-arch
-.PHONY: build clean binary-indep binary-arch binary install
