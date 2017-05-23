@@ -1,6 +1,6 @@
 # use -Dinline if compiling with c89
-INCDIR=$(install_root)/usr/include/genht
-LIBDIR=$(install_root)/usr/lib
+INCDIR=$(install_root)$(DESTDIR)/usr/include/genht
+LIBDIR=$(install_root)$(DESTDIR)/usr/lib
 
 CFLAGS=-Wall -pedantic -g
 
