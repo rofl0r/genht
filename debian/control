@@ -5,14 +5,14 @@ Maintainer: Tibor Palinkas <genht@igor2.repo.hu>
 Homepage: http://repo.hu/projects/genht
 
 Package: libgenht
-Architecture: all
+Architecture: any
 Depends: ${shlibs:Depends}
 Description: Generic hash table lib for C
  Provides a simple interface for creating hash tables with arbitrary
  key and value types. Ships with shared objects for standard table types.
 
 Package: libgenht1-dev
-Architecture: all
+Architecture: any
 Depends: ${shlibs:Depends}
 Description: Generic hash table lib for C
  Provides a simple interface for creating hash tables with arbitrary
