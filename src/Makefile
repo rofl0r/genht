@@ -10,9 +10,12 @@ OBJS=htss.o htsp.o htsi.o htip.o htpp.o htpi.o hash.o siphash24.o
 all: $(BIN) $(OBJS) genht_std.a genht_std.so
 
 clean:
-	rm -f $(BIN) *.o
+	rm -f $(BIN) $(OBJS)
 
-%.o:%.c
+.SUFFIXES:
+.SUFFIXES: .o .c
+
+.c.o:
 	$(CC) -o $@ -c -fPIC $< $(CFLAGS)
 
 mainsi: mainsi.o htsi.o
