@@ -2,15 +2,23 @@
 INCDIR=$(install_root)$(DESTDIR)/usr/include/genht
 LIBDIR=$(install_root)$(DESTDIR)/usr/lib
 
-CFLAGS=-Wall -pedantic -g
+VER_MAJOR=1
+VER_MINOR=0
+VER_PATCH=1
+VER=$(VER_MAJOR).$(VER_MINOR).$(VER_PATCH)
+
+CFLAGS=-g $(GENHT_CFLAGS)
+LDFLAGS=$(GENHT_LDFLAGS)
 
 BIN=mainsi
 OBJS=htss.o htsp.o htsi.o htip.o htpp.o htpi.o hash.o siphash24.o
+LIBSO=libgenht.so.$(VER)
+LIBA=libgenht$(VER).a
 
-all: $(BIN) $(OBJS) genht_std.a genht_std.so
+all: $(BIN) $(OBJS) $(LIBA) $(LIBSO)
 
 clean:
-	rm -f $(BIN) $(OBJS)
+	-rm $(BIN) $(OBJS) $(LIBA) $(LIBSO) genht_std.so genht_std.a
 
 .SUFFIXES:
 .SUFFIXES: .o .c
@@ -21,11 +29,19 @@ clean:
 mainsi: mainsi.o htsi.o
 	$(CC) -o $@ mainsi.o htsi.o $(LDFLAGS)
 
-genht_std.so: $(OBJS)
+$(LIBSO): $(OBJS)
 	$(CC) -shared -dynamic -rdynamic -o $@ $(OBJS)
 
-genht_std.a: $(OBJS)
+$(LIBA): $(OBJS)
 	ar rvu $@ $(OBJS)
+
+# for compatibility
+genht_std.so: $(LIBSO)
+	ln -s $(LIBSO) genht_std.so
+
+# for compatibility
+genht_std.a: $(LIBA)
+	ln -s $(LIBA) genht_std.a
 
 install_: genht_std.so genht_std.a
 	mkdir -p $(INCDIR) $(LIBDIR)
@@ -37,8 +53,8 @@ install_: genht_std.so genht_std.a
 	$(CP) `pwd`/htsp.h $(INCDIR)/htsp.h
 	$(CP) `pwd`/htss.h $(INCDIR)/htss.h
 	$(CP) `pwd`/htpp.h $(INCDIR)/htpp.h
-	$(CP) `pwd`/genht_std.so $(LIBDIR)/genht_std.so
-	$(CP) `pwd`/genht_std.a $(LIBDIR)/genht_std.a
+	$(CP) `pwd`/$(LIBSO) $(LIBDIR)/$(LIBSO)
+	$(CP) `pwd`/$(LIBSA) $(LIBDIR)/$(LIBSA)
 
 uninstall:
 	rm -rf $(INCDIR)
