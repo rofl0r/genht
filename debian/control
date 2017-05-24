@@ -1,10 +1,10 @@
-Source: libgenht
+Source: libgenht1
 Section: libs
 Priority: optional
 Maintainer: Tibor Palinkas <genht@igor2.repo.hu>
 Homepage: http://repo.hu/projects/genht
 
-Package: libgenht
+Package: libgenht1
 Architecture: any
 Depends: ${shlibs:Depends}
 Description: Generic hash table lib for C
@@ -13,6 +13,7 @@ Description: Generic hash table lib for C
 
 Package: libgenht1-dev
 Architecture: any
+Section: libdevel
 Depends: ${shlibs:Depends}
 Description: Generic hash table lib for C
  Provides a simple interface for creating hash tables with arbitrary

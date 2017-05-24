@@ -2,6 +2,8 @@
 DPKG_EXPORT_BUILD_FLAGS = 1
 include /usr/share/dpkg/buildflags.mk
 
+export GENHT_LDFLAGS=-Wl,-soname,libgenht.so.1
+
 %:
 	dh $@ --parallel
 
