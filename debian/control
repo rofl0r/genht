@@ -14,7 +14,6 @@ Description: Generic hash table lib for C
 Package: libgenht1-dev
 Architecture: any
 Section: libdevel
-Depends: ${shlibs:Depends}
 Description: Generic hash table lib for C
  Provides a simple interface for creating hash tables with arbitrary
  key and value types. Ships with shared objects for standard table types.
