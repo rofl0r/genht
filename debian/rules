@@ -10,5 +10,3 @@ override_dh_auto_configure:
 
 override_dh_auto_install:
 	dh_auto_install -v --destdir=debian/tmp
-
-

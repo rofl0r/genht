@@ -1,11 +1,22 @@
-Source: genht
+Source: libgenht
 Section: libs
 Priority: optional
 Maintainer: Tibor Palinkas <genht@igor2.repo.hu>
+Homepage: http://repo.hu/projects/genht
 
-Package: genht
+Package: libgenht
 Architecture: all
 Depends: ${shlibs:Depends}
 Description: Generic hash table lib for C
  Provides a simple interface for creating hash tables with arbitrary
  key and value types. Ships with shared objects for standard table types.
+
+Package: libgenht1-dev
+Architecture: all
+Depends: ${shlibs:Depends}
+Description: Generic hash table lib for C
+ Provides a simple interface for creating hash tables with arbitrary
+ key and value types. Ships with shared objects for standard table types.
+ .
+ This package contains the static library and header files used in
+ development.
