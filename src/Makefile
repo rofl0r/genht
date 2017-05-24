@@ -59,7 +59,7 @@ install_:
 
 uninstall:
 	rm -rf $(INCDIR)
-	rm $(LIBDIR)/$(LIBSO) $(LIBDIR)/$(LIBA)
+	rm $(LIBDIR)/$(LIBSO) $(LIBDIR)/$(LIBA) $(LIBDIR)/$(LIBSO1)
 
 install:
 	make install_ CP="cp"
