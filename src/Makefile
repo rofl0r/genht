@@ -54,7 +54,7 @@ install_: genht_std.so genht_std.a
 	$(CP) `pwd`/htss.h $(INCDIR)/htss.h
 	$(CP) `pwd`/htpp.h $(INCDIR)/htpp.h
 	$(CP) `pwd`/$(LIBSO) $(LIBDIR)/$(LIBSO)
-	$(CP) `pwd`/$(LIBSA) $(LIBDIR)/$(LIBSA)
+	$(CP) `pwd`/$(LIBA) $(LIBDIR)/$(LIBA)
 
 uninstall:
 	rm -rf $(INCDIR)
