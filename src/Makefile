@@ -31,7 +31,7 @@ mainsi: mainsi.o htsi.o
 	$(CC) -o $@ mainsi.o htsi.o $(LDFLAGS)
 
 $(LIBSO): $(OBJS)
-	$(CC) -shared -dynamic -rdynamic -o $@ $(OBJS)
+	$(CC) $(LDFLAGS) -shared -dynamic -rdynamic -o $@ $(OBJS)
 
 $(LIBA): $(OBJS)
 	ar rvu $@ $(OBJS)
