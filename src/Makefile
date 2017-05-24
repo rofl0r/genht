@@ -13,7 +13,8 @@ LDFLAGS=$(GENHT_LDFLAGS)
 BIN=mainsi
 OBJS=htss.o htsp.o htsi.o htip.o htpp.o htpi.o hash.o siphash24.o
 LIBSO=libgenht.so.$(VER)
-LIBA=libgenht$(VER).a
+LIBSO1=libgenht.so.$(VER_MAJOR)
+LIBA=libgenht.a
 
 all: $(BIN) $(OBJS) $(LIBA) $(LIBSO)
 
@@ -43,7 +44,7 @@ genht_std.so: $(LIBSO)
 genht_std.a: $(LIBA)
 	ln -s $(LIBA) genht_std.a
 
-install_: genht_std.so genht_std.a
+install_:
 	mkdir -p $(INCDIR) $(LIBDIR)
 	$(CP) `pwd`/hash.h $(INCDIR)/hash.h
 	$(CP) `pwd`/ht.h $(INCDIR)/ht.h
@@ -58,10 +59,12 @@ install_: genht_std.so genht_std.a
 
 uninstall:
 	rm -rf $(INCDIR)
-	rm $(LIBDIR)/genht_std.so  $(LIBDIR)/genht_std.a
+	rm $(LIBDIR)/$(LIBSO) $(LIBDIR)/$(LIBA)
 
 install:
 	make install_ CP="cp"
+	ln -s $(LIBSO) $(LIBDIR)/$(LIBSO1)
 
 linstall:
 	make install_ CP="ln -s"
+	ln -s $(LIBSO) $(LIBDIR)/$(LIBSO1)
