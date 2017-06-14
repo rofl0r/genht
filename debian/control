@@ -3,6 +3,7 @@ Section: libs
 Priority: optional
 Maintainer: Tibor Palinkas <genht@igor2.repo.hu>
 Homepage: http://repo.hu/projects/genht
+Build-Depends: debhelper (>= 9)
 
 Package: libgenht1
 Architecture: any
