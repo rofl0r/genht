@@ -2,9 +2,11 @@
 INCDIR=$(install_root)$(DESTDIR)/usr/include/genht
 LIBDIR=$(install_root)$(DESTDIR)/usr/lib
 
+HOSTCC = $(CC)
+
 VER_MAJOR=1
-VER_MINOR=0
-VER_PATCH=1
+VER_MINOR=1
+VER_PATCH=0
 VER=$(VER_MAJOR).$(VER_MINOR).$(VER_PATCH)
 
 CFLAGS=-g $(GENHT_CFLAGS)
@@ -16,7 +18,7 @@ LIBSO=libgenht.so.$(VER)
 LIBSO1=libgenht.so.$(VER_MAJOR)
 LIBA=libgenht.a
 
-all: $(BIN) $(OBJS) $(LIBA) $(LIBSO)
+all: version.h $(BIN) $(OBJS) $(LIBA) $(LIBSO)
 
 clean:
 	-rm $(BIN) $(OBJS) $(LIBA) $(LIBSO) genht_std.so genht_std.a
@@ -44,10 +46,17 @@ genht_std.so: $(LIBSO)
 genht_std.a: $(LIBA)
 	ln -s $(LIBA) genht_std.a
 
+version.h: version.h.in ver_edit
+	./ver_edit $(VER_MAJOR) $(VER_MINOR) $(VER_PATCH) < version.h.in > version.h
+
+ver_edit: ver_edit.c
+	$(HOSTCC) -o $@ $(CFLAGS) ver_edit.c
+
 install_:
 	mkdir -p $(INCDIR) $(LIBDIR)
 	$(CP) `pwd`/hash.h $(INCDIR)/hash.h
 	$(CP) `pwd`/ht.h $(INCDIR)/ht.h
+	$(CP) `pwd`/version.h $(INCDIR)/version.h
 	$(CP) `pwd`/ht_inlines.h $(INCDIR)/ht_inlines.h
 	$(CP) `pwd`/htip.h $(INCDIR)/htip.h
 	$(CP) `pwd`/htsi.h $(INCDIR)/htsi.h
