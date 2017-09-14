@@ -1,4 +1,4 @@
-# use -Dinline if compiling with c89
+# use -DGENHT_WANT_INLINE to turn half of the API into static inline functions
 INCDIR=$(install_root)$(DESTDIR)/usr/include/genht
 LIBDIR=$(install_root)$(DESTDIR)/usr/lib
 
