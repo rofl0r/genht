@@ -1,17 +1,16 @@
 #include <stdlib.h>
 #include <assert.h>
 
-#ifdef inline
+#ifdef GENHT_WANT_INLINE
+#	define GENHT_INLINE inline
+#	define GENHT_STATIC static
+#else
 /* make sure inline and static are empty so all calls become linkable functions */
-#undef inline
-#define inline
-#ifdef static
-#undef static
+#	define GENHT_INLINE
+#	define GENHT_STATIC
+#	include "ht_inlines.h"
 #endif
-#define static
-#include "ht_inlines.h"
-#undef static
-#endif
+
 
 #ifndef HT_INVALID_VALUE
 #define HT_INVALID_VALUE 0
@@ -25,15 +24,15 @@
 
 /* generic functions, useful if ht_entry_t changes */
 
-static inline void setused(HT(entry_t) *entry) {
+static GENHT_INLINE void setused(HT(entry_t) *entry) {
 	entry->flag = 1;
 }
 
-static inline void setdeleted(HT(entry_t) *entry) {
+static GENHT_INLINE void setdeleted(HT(entry_t) *entry) {
 	entry->flag = -1;
 }
 
-static inline unsigned int entryhash(const HT(entry_t) *entry) {
+static GENHT_INLINE unsigned int entryhash(const HT(entry_t) *entry) {
 	return entry->hash;
 }
 
@@ -177,7 +176,7 @@ HT(entry_t) *HT(getentry)(HT(t) *ht, HT(const_key_t) key) {
 }
 
 /* fill threshold = 3/4 */
-static inline void checkfill(HT(t) *ht) {
+static GENHT_INLINE void checkfill(HT(t) *ht) {
 	if (ht->fill > ht->mask - (ht->mask >> 2) || ht->fill > ht->used << 2)
 		HT(resize)(ht, ht->used << (ht->used > 1 << 16 ? 1 : 2));
 }

@@ -82,8 +82,11 @@ void HT(delentry)(HT(t) *ht, HT(entry_t) *entry);
 #endif
 
 
-#ifdef inline
-
+#ifdef GENHT_WANT_INLINE
+#	define GENHT_STATIC static
+#	define GENHT_INLINE inline
+#	include "ht_inlines.h"
+#else
 /* helper functions */
 unsigned int HT(length)(const HT(t) *ht);
 unsigned int HT(fill)(const HT(t) *ht);
@@ -100,6 +103,4 @@ HT(entry_t) *HT(first)(const HT(t) *ht);
 /* next used (useful for iteration) */
 HT(entry_t) *HT(next)(const HT(t) *ht, HT(entry_t) *entry);
 
-#else
-#include "ht_inlines.h"
 #endif
