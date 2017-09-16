@@ -72,8 +72,10 @@ uninstall:
 
 install:
 	make install_ CP="cp"
+	-@rm $(LIBDIR)/$(LIBSO1)
 	ln -s $(LIBSO) $(LIBDIR)/$(LIBSO1)
 
 linstall:
 	make install_ CP="ln -s"
+	-@rm $(LIBDIR)/$(LIBSO1)
 	ln -s $(LIBSO) $(LIBDIR)/$(LIBSO1)
