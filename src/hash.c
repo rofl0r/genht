@@ -28,6 +28,12 @@
 
 #define SEED 0x9e3779b9
 
+int genht_strcasecmp(const char *s1, const char *s2)
+{
+	for(; (*s1 != '\0') && (*s2 != '\0') && ((*s1 == *s2) || (tolower(*s1) == tolower(*s2))); s1++, s2++);
+	return tolower(*s1) - tolower(*s2);
+}
+
 /* not for strings: does unaligned access and reads past the end of key */
 /* bob jenkins: lookup 3 */
 unsigned jenhash(const void *key, unsigned len) {
@@ -137,7 +143,7 @@ int strkeyeq(const char *a, const char *b)
 /* case insensitive string keyeq */
 int strkeyeq_case(const char *a, const char *b)
 {
-	return !strcasecmp(a, b);
+	return !genht_strcasecmp(a, b);
 }
 
 /* pointer match for htp*_t */

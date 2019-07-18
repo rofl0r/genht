@@ -1,5 +1,7 @@
 /* assumes sizeof(unsigned)==4 */
 
+#define GENHT_HAS_STRCASECMP 1
+
 /* not for strings: does unaligned access and reads past the end of key */
 /* bob jenkins: lookup 3 */
 unsigned jenhash(const void *key, unsigned len);
