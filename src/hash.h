@@ -2,6 +2,9 @@
 
 #define GENHT_HAS_STRCASECMP 1
 
+/* Portable (c89) version of strcasecmp */
+int genht_strcasecmp(const char *s1, const char *s2);
+
 /* not for strings: does unaligned access and reads past the end of key */
 /* bob jenkins: lookup 3 */
 unsigned jenhash(const void *key, unsigned len);
