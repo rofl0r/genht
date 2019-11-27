@@ -1,5 +1,4 @@
 #include <stdlib.h>
-#include <assert.h>
 
 #ifdef GENHT_WANT_INLINE
 #	define GENHT_INLINE inline
@@ -36,14 +35,16 @@ static GENHT_INLINE unsigned int entryhash(const HT(entry_t) *entry) {
 	return entry->hash;
 }
 
-void HT(init)(HT(t) *ht, unsigned int (*keyhash)(HT(const_key_t)), int (*keyeq)(HT(const_key_t), HT(const_key_t))) {
+int HT(init)(HT(t) *ht, unsigned int (*keyhash)(HT(const_key_t)), int (*keyeq)(HT(const_key_t), HT(const_key_t))) {
 	ht->mask = HT_MINSIZE - 1;
 	ht->fill = 0;
 	ht->used = 0;
 	ht->table = genht_calloc(ht, ht->mask + 1, sizeof(HT(entry_t)));
-	assert(ht->table);
+	if (!ht->table)
+		return -1;
 	ht->keyhash = keyhash;
 	ht->keyeq = keyeq;
+	return 0;
 }
 
 void HT(uninit)(HT(t) *ht) {
@@ -54,7 +55,8 @@ void HT(uninit)(HT(t) *ht) {
 HT(t) *HT(alloc)(unsigned int (*keyhash)(HT(const_key_t)), int (*keyeq)(HT(const_key_t), HT(const_key_t))) {
 	HT(t) *ht = genht_malloc(NULL, sizeof(HT(t)));
 
-	assert(ht);
+	if (!ht)
+		return 0;
 	HT(init)(ht, keyhash, keyeq);
 	return ht;
 }
@@ -121,11 +123,15 @@ HT(t) *HT(copy)(const HT(t) *ht) {
 	unsigned int used = ht->used;
 
 	newht = genht_malloc(NULL, sizeof(HT(t)));
-	assert(newht);
+	if (!newht)
+		return 0;
 	*newht = *ht;
 	newht->fill = used;
 	newht->table = genht_calloc(ht, newht->mask + 1, sizeof(HT(entry_t)));
-	assert(newht->table);
+	if (!newht->table) {
+		genht_free(NULL, newht);
+		return 0;
+	}
 	for (entry = ht->table; used > 0; entry++)
 		if (HT(isused)(entry)) {
 			used--;
@@ -134,7 +140,7 @@ HT(t) *HT(copy)(const HT(t) *ht) {
 	return newht;
 }
 
-void HT(resize)(HT(t) *ht, unsigned int hint) {
+int HT(resize)(HT(t) *ht, unsigned int hint) {
 	unsigned int newsize;
 	unsigned int used = ht->used;
 	HT(entry_t) *oldtable = ht->table;
@@ -146,7 +152,10 @@ void HT(resize)(HT(t) *ht, unsigned int hint) {
 		hint = HT_MAXSIZE;
 	for (newsize = HT_MINSIZE; newsize < hint; newsize <<= 1);
 	ht->table = genht_calloc(ht, newsize, sizeof(HT(entry_t)));
-	assert(ht->table);
+	if (!ht->table) {
+		ht->table = oldtable;
+		return -1;
+	}
 	ht->mask = newsize - 1;
 	ht->fill = ht->used;
 	for (entry = oldtable; used > 0; entry++)
@@ -155,6 +164,7 @@ void HT(resize)(HT(t) *ht, unsigned int hint) {
 			*cleanlookup(ht, entryhash(entry)) = *entry;
 		}
 	genht_free(ht, oldtable);
+	return 0;
 }
 
 int HT(has)(HT(t) *ht, HT(const_key_t) key) {

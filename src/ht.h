@@ -1,5 +1,5 @@
 /* open addressing hash table */
-/* no malloc checks (out of memory == segfault), max size is 1 << 31 */
+/* max size is 1 << 31 */
 /* an entry pointer is valid until the next insertion or resize */
 /*
 typedef void *HT(key_t);
@@ -38,14 +38,16 @@ typedef struct {
 #endif
 } HT(t);
 
+/* allocates a new hash table, but the function may return null-pointer */
 HT(t) *HT(alloc)(unsigned int (*keyhash)(HT(const_key_t)), int (*keyeq)(HT(const_key_t), HT(const_key_t)));
-void HT(init)(HT(t) *ht, unsigned int (*keyhash)(HT(const_key_t)), int (*keyeq)(HT(const_key_t), HT(const_key_t)));
+/* returns 0 on success */
+int HT(init)(HT(t) *ht, unsigned int (*keyhash)(HT(const_key_t)), int (*keyeq)(HT(const_key_t), HT(const_key_t)));
 void HT(free)(HT(t) *ht);
 void HT(uninit)(HT(t) *ht);
 void HT(clear)(HT(t) *ht);
 HT(t) *HT(copy)(const HT(t) *ht);
-/* new size is 2^n >= hint */
-void HT(resize)(HT(t) *ht, unsigned int hint);
+/* new size is 2^n >= hint, returns 0 on success */
+int HT(resize)(HT(t) *ht, unsigned int hint);
 
 /* ht[key] is used */
 int HT(has)(HT(t) *ht, HT(const_key_t) key);
