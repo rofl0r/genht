@@ -59,6 +59,7 @@ install_:
 	$(CP) `pwd`/ht.h $(INCDIR)/ht.h
 	$(CP) `pwd`/version.h $(INCDIR)/version.h
 	$(CP) `pwd`/ht_inlines.h $(INCDIR)/ht_inlines.h
+	$(CP) `pwd`/ht_utils.h $(INCDIR)/ht_utils.h
 	$(CP) `pwd`/htip.h $(INCDIR)/htip.h
 	$(CP) `pwd`/htsi.h $(INCDIR)/htsi.h
 	$(CP) `pwd`/htsp.h $(INCDIR)/htsp.h
