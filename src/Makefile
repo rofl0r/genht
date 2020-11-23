@@ -22,7 +22,7 @@ LIBA=libgenht.a
 all: version.h $(BIN) $(OBJS) $(LIBA) $(LIBSO)
 
 clean:
-	-rm $(BIN) $(OBJS) $(LIBA) $(LIBSO) genht_std.so genht_std.a
+	-rm $(BIN) $(OBJS) $(LIBA) $(LIBSO) genht_std.so genht_std.a version.h ver_edit
 
 .SUFFIXES:
 .SUFFIXES: .o .c
