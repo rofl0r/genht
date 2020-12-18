@@ -3,3 +3,6 @@ all:
 
 install:
 	cd src && make install
+
+test:
+	cd src && make test

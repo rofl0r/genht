@@ -81,3 +81,8 @@ linstall:
 	make install_ CP="ln -s"
 	-@rm $(LIBDIR)/$(LIBSO1) 2>/dev/null
 	ln -s $(LIBSO) $(LIBDIR)/$(LIBSO1)
+
+test: mainsi
+	@./mainsi > mainsi.out
+	@diff mainsi.ref mainsi.out
+	@echo "*** QC pass ***"
