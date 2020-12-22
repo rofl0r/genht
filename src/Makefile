@@ -38,6 +38,8 @@ $(LIBSO): $(OBJS)
 
 $(LIBA): $(OBJS)
 	ar rvu $@ $(OBJS)
+	-ar s $@
+	-ranlib $@
 
 # for compatibility
 genht_std.so: $(LIBSO)
