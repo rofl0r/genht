@@ -58,11 +58,14 @@ ver_edit: ver_edit.c
 install_:
 	mkdir -p $(INCDIR) $(LIBDIR)
 	$(CP) `pwd`/hash.h $(INCDIR)/hash.h
+	$(CP) `pwd`/siphash24.h $(INCDIR)/siphash24.h
 	$(CP) `pwd`/ht.h $(INCDIR)/ht.h
+	$(CP) `pwd`/ht.c $(INCDIR)/ht.c
 	$(CP) `pwd`/version.h $(INCDIR)/version.h
 	$(CP) `pwd`/ht_inlines.h $(INCDIR)/ht_inlines.h
 	$(CP) `pwd`/ht_utils.h $(INCDIR)/ht_utils.h
 	$(CP) `pwd`/htip.h $(INCDIR)/htip.h
+	$(CP) `pwd`/htpi.h $(INCDIR)/htpi.h
 	$(CP) `pwd`/htsi.h $(INCDIR)/htsi.h
 	$(CP) `pwd`/htsp.h $(INCDIR)/htsp.h
 	$(CP) `pwd`/htss.h $(INCDIR)/htss.h
