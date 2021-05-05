@@ -1,0 +1,18 @@
+genht 1.0.2 (r96)
+~~~~~~~~~~~~~~~~~
+-Fix: do not overdefine static and inline, rather use GENHT prefixed macros to be more explicit
+-Fix: remove ln -s target first to avoid error
+-Fix: make clean removes version.h and ver_edit that was compiled to edit it
+-Fix: install ht.c (it needs to be #included by projects for creating new hash instances) and the missing .h files
+-Add: version header
+-Add: $(PREFIX) instead of hardwired /usr
+-Add: local implementation of strcasecmp which is not in C89
+-Add: deep uninit macro
+-Add: make test (using example program mainsi)
+-Add: run ranlib on the .a
+-Change: remove asserts and perform memory allocation checks, and modify some 'void' return values to 'int'
+
+
+genht 1.0.1 (r73)
+~~~~~~~~~~~~~~~~~
+(This release did not have a Changelog)
