@@ -1,4 +1,4 @@
-genht 1.0.2 (r96)
+genht 1.1.0 (r96)
 ~~~~~~~~~~~~~~~~~
 -Fix: do not overdefine static and inline, rather use GENHT prefixed macros to be more explicit
 -Fix: remove ln -s target first to avoid error
