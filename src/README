@@ -1,0 +1,25 @@
+For examples look at doc/example*.
+
+ht.[ch]           - the actual hash table implementation (type generic); not
+                    used directly, used to instantiate type-specific variants
+                    like htsi.[ch]; apps may use these to create new typed
+                    hash table instances (see ../doc/examplev.c)
+
+ht[a-z][a-z].[ch] - specific key-value type instances that are used commonly
+                    by applications, e.g. htsi is key=str val=integer,
+                    htpp is key=ptr val=ptr
+
+hash.[ch]         - optional: common hash functions for some basic types so
+                    apps don't have to reinvent "string hash" all the time
+
+ht_utils.h        - optional: helper macros that are useful with any hash table
+
+mainsi.c          - example and regression test (../doc has better examples)
+
+siphash.[ch]      - optional: sip hash implementation for binary data
+
+version.h         - API version macros (app can use them for compile time check)
+
+ver_edit          - part of the "build system", ignore
+
+ht_inlines.h      - internal, do not use it directly
