@@ -1,6 +1,6 @@
 /* genht string-to-integer example
 
-   Placed in the Public Domain (2021, Tibor 'Igor2' Palinkas
+   Placed in the Public Domain (2021, Tibor 'Igor2' Palinkas)
 
    This example reads stdin line by line and remembers the line number
    of the last occurance of each unique line content.
