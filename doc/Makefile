@@ -1,4 +1,4 @@
-CFLAGS = -I../src -Wall
+CFLAGS = -I../src
 
 all: example examplev
 
