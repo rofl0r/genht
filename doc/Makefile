@@ -6,3 +6,6 @@ example: example.o ../src/htsi.o ../src/hash.o
 
 example.o: example.c
 	$(CC) -o example.o -c $(CFLAGS) example.c
+
+clean:
+	-rm example.o example
