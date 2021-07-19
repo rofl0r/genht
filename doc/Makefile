@@ -1,4 +1,4 @@
-CFLAGS = -I../src
+CFLAGS = -I../src -Wall
 
 # you can use -lgenht instead of the ../src/ stuff when it's installed
 example: example.o ../src/htsi.o ../src/hash.o

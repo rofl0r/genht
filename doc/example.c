@@ -4,6 +4,9 @@
 
    This example reads stdin line by line and remembers the line number
    of the last occurance of each unique line content.
+
+   (Note: the code is c89, except for the strdup() call which is used to
+   keep boilerplate small)
 */
 
 #include <stdio.h>
@@ -32,7 +35,10 @@ int main()
 		lineno++;
 		end = strpbrk(s, "\r\n");
 		if (end != NULL) *end = '\0';
-		htsi_set(&ht, strdup(s), lineno);
+		if (htsi_has(&ht, s))
+			htsi_set(&ht, s, lineno); /* existing entry: just update the number */
+		else
+			htsi_set(&ht, strdup(s), lineno); /* new entry: need to strdup() because htsi stores the pointer only */
 	}
 
 	/* simple lookups */
@@ -44,6 +50,12 @@ int main()
 	for(e = htsi_first(&ht); e != NULL; e = htsi_next(&ht, e))
 		printf(" '%s' last in line %d\n", e->key, e->value);
 
+	/* Our keys are strdup'd, free them */
+	for(e = htsi_first(&ht); e != NULL; e = htsi_next(&ht, e))
+		free(e->key);
+
+	/* Discard the table, free all administrative memory allocated in the lib */
 	htsi_uninit(&ht);
+
 	return 0;
 }
