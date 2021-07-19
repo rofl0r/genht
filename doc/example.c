@@ -34,8 +34,12 @@ int main()
 	/* read each line of stdin and remember the last occurance line number for each */
 	while((s = fgets(line, sizeof(line), stdin)) != NULL) {
 		lineno++;
+
+		/* remove newline from the end of the line */
 		end = strpbrk(s, "\r\n");
 		if (end != NULL) *end = '\0';
+
+		/* update existing line or enter a new line in the hash */
 		if (htsi_has(&ht, s))
 			htsi_set(&ht, s, lineno); /* existing entry: just update the number */
 		else
